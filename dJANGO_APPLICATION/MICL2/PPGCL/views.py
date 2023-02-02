@@ -332,7 +332,7 @@ def show_predict_AG_ajax(request):
     return JsonResponse(data)
 @login_required
 def show_predict_FREQ(request):
-    return render(request, 'predict_FREQUENCY.html')
+    return render(request, 'predict_Frequency.html')
 
 @login_required
 def show_predict_FREQ_ajax(request):
