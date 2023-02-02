@@ -1,0 +1,484 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Predicted Frequency</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'download.jpg' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Graphs -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+<script src="https://npmcdn.com/Chart.Zoom.js@0.3.0/Chart.Zoom.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static  'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    
+  
+
+    
+
+
+        
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Pages</h3>
+                </a>
+    
+                <div class="navbar-nav w-100">
+                    <a href="{% url 'train' %}"  class="nav-item nav-link"> <i class="fa fa-train"></i>Train Model</a>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="{% url 'show_predict_FREQ' %}"  class="nav-item nav-link  active"> <i class=" fa fa-tachometer-alt me-2"></i>Frequency</a>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="{% url 'show_predict_SG'%}" class="nav-item nav-link "> <i class=" fa fa-tachometer-alt me-2"></i>SG</a>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="{% url 'show_predict_AG'%}" class="nav-item nav-link  "> <i class=" fa fa-tachometer-alt me-2"></i>AG</a>
+                </div>
+    
+                <div class="navbar-nav w-100">
+                    <a href="{% url 'download_predicted_file' %}" class="nav-item nav-link"> <i class=" fa fa-download"></i>Download </a>
+                </div>
+    
+            </div>
+
+                
+             
+                
+            </nav>
+        </div>
+
+        
+
+
+      
+        <div class="content">
+           
+            
+
+            <div class="container-fluid pt-2 px-2">
+   
+                <div class="bg-light rounded-top p-2">
+            
+                  <h1 class="mb-4 text-2xl text-center font-bold leading-none tracking-tight text-black-900 md:text-2xl lg:text-2xl  dark:text-black"><span class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-black-600 text-center">Frequency </span></h1>
+            
+        </div>
+        </div>
+
+            
+           
+            
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0 ">Actual  Frequency</h6>
+                       
+                    </div>
+                    <div class="table-responsive" >
+                        <canvas id="Actual_FREQUENCY"></canvas>
+                        
+                    </div>
+                </div>
+            </div>
+          
+       
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0"> Predicted  Frequency</h6>
+                       
+                    </div>
+                    <div class="table-responsive" >
+                        <canvas id="Frequency"></canvas>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0"> Residuals Frequency</h6>
+                       
+                    </div>
+                    <div class="table-responsive" >
+                        <canvas id="Frequency_residuals"></canvas>
+                        
+                    </div>
+                </div>
+            </div>
+          
+
+
+
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0"> Actual Frequency VS Predicted Frequency</h6>
+                       
+                    </div>
+                    <div class="table-responsive" id="ActualvsPredicted">
+                       
+                        
+                    
+                       
+                        
+                    </div>
+                </div>
+            </div> 
+          
+
+          
+
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            <a href="#"></a>
+                        </div>
+                        <div class="col-12 col-sm-6 text-center text-sm-end" id="time_stamp">
+                          
+                          
+                        
+                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="{% static 'lib/chart/chart.min.js' %}"></script> -->
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <!-- <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script> -->
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+<script src="https://npmcdn.com/Chart.Zoom.js@0.3.0/Chart.Zoom.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+
+function refreshTime() {
+  const timeDisplay = document.getElementById("time_stamp");
+  const dateString = new Date().toLocaleString();
+  const formattedString = dateString.replace(", ", " - ");
+  timeDisplay.textContent = formattedString;
+}
+  setInterval(refreshTime, 1000);
+        function predict_SG()
+{
+
+    
+  $.ajax({
+     type:'GET',
+     url:"{% url 'show_predict_FREQ_ajax'%}",
+     success: function(response){
+
+      console.log(response)
+
+      var ctx1 = $("#Actual_FREQUENCY").get(0).getContext("2d");
+var myChart1 = new Chart(ctx1, {
+      type: "line",
+
+  
+  data: {
+            labels:response.labels,
+            type:'line',
+             datasets: [
+             {
+                    label: "ActualFrequency",
+                    type: "line",
+                    data: response.Actual_data,
+                    borderColor:"rgb(0,0,255)",
+                    backgroundColor: "rgba(0,0,255, .5)",
+                    fill: false
+                }, 
+                 
+            ]
+            },
+    options: {
+        elements:{
+          point:{
+            radius:4
+          }
+
+        },
+       
+        responsive: true,
+        scales:{
+            xAxes:[{ticks:{
+                display:true
+
+            }, gridLines:{
+                display:true
+
+            } }],
+            yAxes:[{gridLines:{
+                display:false
+
+            }}],
+
+            y: {beginAtZero: false,max: 50.5 }
+
+        },  
+
+        pan: {
+            // Boolean to enable panning
+            enabled: true,
+
+            // Panning directions. Remove the appropriate direction to disable 
+            // Eg. 'y' would only allow panning in the y direction
+            mode: 'xy',
+            
+            speed: 1
+        },
+
+        // Container for zoom options
+        zoom: {
+            // Boolean to enable zooming
+            enabled: true,            
+            // Zooming directions. Remove the appropriate direction to disable 
+            // Eg. 'y' would only allow zooming in the y direction
+            mode: 'xy',
+        },
+    }
+});
+
+var ctx2 = $("#Frequency").get(0).getContext("2d");
+var myChart2 = new Chart(ctx2, {
+      type: "line",
+
+  
+  data: {
+            labels:response.labels,
+            type:'line',
+             datasets: [
+             {
+                    label: "Predicted Frequency",
+                    type: "line",
+                    data: response.data_predicted,
+                    borderColor:"rgb(255,0,255)",
+                    backgroundColor: "rgba(255,0,255, .5)",
+                    fill: false
+                }, 
+                 
+            ]
+            },
+    options: {
+        elements:{
+          point:{
+            radius:4
+          }
+
+        },
+        responsive: true,
+        scales:{
+            xAxes:[{ticks:{
+                display:true
+
+            }, gridLines:{
+                display:true
+
+            } }],
+            yAxes:[{gridLines:{
+                display:false
+
+            }}],
+
+            y: {beginAtZero: false,max: 50.5 }
+
+        },  
+        pan: {
+            // Boolean to enable panning
+            enabled: true,
+
+            // Panning directions. Remove the appropriate direction to disable 
+            // Eg. 'y' would only allow panning in the y direction
+            mode: 'xy',
+            
+            speed: 1
+        },
+
+        // Container for zoom options
+        zoom: {
+            // Boolean to enable zooming
+            enabled: true,            
+            // Zooming directions. Remove the appropriate direction to disable 
+            // Eg. 'y' would only allow zooming in the y direction
+            mode: 'xy',
+        },
+    }
+});
+
+var ctx3 = $("#Frequency_residuals").get(0).getContext("2d");
+var myChart3 = new Chart(ctx3, {
+      type: "line",
+
+  
+  data: {
+            labels:response.labels,
+            type:'line',
+             datasets: [
+             {
+                    label: "Residuals Frequency",
+                    data: response.residuals,
+                    borderColor:"rgb(0,0,0)",
+                    backgroundColor: "rgba(0,0,0, .5)",
+                    fill: false
+                }, 
+                 
+            ]
+            },
+    options: {
+        elements:{
+          point:{
+            radius:4
+          }
+
+        },
+        responsive: true,
+        scales:{
+            xAxes:[{ticks:{
+                display:true
+
+            }, gridLines:{
+                display:true
+
+            } }],
+            yAxes:[{gridLines:{
+                display:false
+
+            }}],
+
+            y: {beginAtZero: false,max: 50.5 }
+
+        },  
+        pan: {
+            // Boolean to enable panning
+            enabled: true,
+
+            // Panning directions. Remove the appropriate direction to disable 
+            // Eg. 'y' would only allow panning in the y direction
+            mode: 'xy',
+            
+            speed: 1
+        },
+
+        // Container for zoom options
+        zoom: {
+            // Boolean to enable zooming
+            enabled: true,            
+            // Zooming directions. Remove the appropriate direction to disable 
+            // Eg. 'y' would only allow zooming in the y direction
+            mode: 'xy',
+        },
+    }
+});
+
+
+
+// Define Data
+var data1 = {
+  x:[49.5, 50.5],
+  y:[49.5, 50.5],
+  mode:"line",
+  name:"45-deg line"
+};
+var data2 = {
+  x:response.Actual_data,
+  y:response.data_predicted,
+  mode:"markers",
+  name:"datapoints"
+};
+
+var data=[data1,data2]
+
+// Define Layout
+var layout = {
+  xaxis: {range: [49.5, 50.5], title: "Actual Frequency"},
+  yaxis: {range: [49.5, 50.5], title: "Predicted Frequency"},  
+  title: ""
+};
+
+// Display using Plotly
+Plotly.newPlot("ActualvsPredicted", data, layout);
+    
+
+     },
+
+     error: function(response)
+     {
+      console.log("failed")
+     }
+    
+  })
+  
+
+
+ 
+}
+
+
+
+predict_SG();
+
+  
+    </script>
+</body>
+
+</html>
+
+
+

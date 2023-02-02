@@ -1,0 +1,216 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<title>Page Title</title>
+
+<!-- Favicon -->
+    <link href="{% static 'download.jpg' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static  'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+
+
+
+
+
+<div class="content">
+           
+ 
+  
+
+
+  <div class="container-fluid pt-4 px-4">
+      <div class="bg-light text-center rounded p-4">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+              <h6 class="mb-0">AG(MW) </h6>
+             
+          </div>
+          <div class="table-responsive">
+            <canvas id="worldwide-sales9"></canvas>
+              
+          </div>
+      </div>
+  </div>
+
+  <div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded-top p-4">
+
+      <div class="w-full">
+        <form action="{%url 'test12_AG'%}" class="bg-white shadow-md rounded px-1 pt-1 pb-1  w-full" method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}  
+            <div class="w-full">
+            <label class="px-2 pt-1 pb-1 block mb-2 text-sm font-medium text-blue-900 dark:text-black" >Upload files for Prediction</label>
+    <input class="block px-2 py-2 w-full h-12 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white-500 text-white-400 focus:outline-none dark:bg-blue-100 dark:border-gray-600 dark:placeholder-gray-400" name="file" id="file" type="file" single>
+          </div>
+
+          <div class=" w-full  px-1 pt-1 pt-2 pb-1">
+            <button class="bg-blue-500 text-white hover:bg-blue-400 h-10  text-sm front-bold py-1 px-1 rounded" type="submit">
+             Upload File 
+            </button>
+        </form>
+          
+          
+            
+          </div>
+          
+        
+      </div>
+        
+    </div>
+
+  <!-- <div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded-top p-4">
+
+      <div class="w-full">
+        <form action="{%url 'test'%}" class="bg-white shadow-md rounded px-1 pt-1 pb-1  w-full" method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}  
+            <div class="w-full">
+            <label class="px-2 pt-1 pb-1 block mb-2 text-sm font-medium text-blue-900 dark:text-black" >Upload files</label>
+    <input class="block px-2 py-2 w-full h-12 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white-500 text-white-400 focus:outline-none dark:bg-blue-100 dark:border-gray-600 dark:placeholder-gray-400" name="file" id="file" type="file" single>
+          </div>
+
+          <div class=" w-full  px-1 pt-1 pt-2 pb-1">
+            <button class="bg-blue-500 text-white hover:bg-blue-400 h-10  text-sm front-bold py-1 px-1 rounded" type="submit">
+             Upload File and Train Model
+            </button>
+        </form>
+          
+          
+            
+          </div>
+          
+        
+      </div>
+        
+    </div> -->
+</div>
+
+
+  <!-- Footer Start -->
+  <div class="container-fluid pt-4 px-4">
+      <div class="bg-light rounded-top p-4">
+          <div class="row">
+              <div class="col-12 col-sm-6 text-center text-sm-start">
+                  &copy; <a href="#">MICL Lab, IIT-Patna</a>, All Right Reserved. 
+              </div>
+              <div class="col-12 col-sm-6 text-center text-sm-end" id="time_stamp">
+                
+                
+              
+            
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Footer End -->
+</div>
+
+
+
+<!-- Footer End -->
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/chart/chart.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+<script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+<script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+<script>
+    function refreshTime() {
+  const timeDisplay = document.getElementById("time_stamp");
+  const dateString = new Date().toLocaleString();
+  const formattedString = dateString.replace(", ", " - ");
+  timeDisplay.textContent = formattedString;
+}
+  setInterval(refreshTime, 1000);
+  
+function SW()
+{
+
+
+  var ctx1 = $("#worldwide-sales9").get(0).getContext("2d");
+  $.ajax({
+     type:'GET',
+     url:"{% url 'AGGraph'%}",
+     success: function(response){
+
+      console.log(response)
+
+      var myChart1 = new Chart(ctx1, {
+      type: "line",
+
+  
+  data: {
+            labels: response.labels,
+             datasets: [
+              {
+                    label: "Actual",
+                    data: response.data,
+                    borderColor:"rgba(255,0,0,.8)",
+                    backgroundColor: "rgba(255,0,0, .5)",
+                    fill: false
+                },
+                {
+                    label: "Prediction",
+                    data: response.data_predicted,
+                    borderColor:"rgb(0,0,255)",
+                    backgroundColor: "rgba(0,0,255, .5)",
+                    fill: false
+                }
+            ]
+            },
+    options: {
+        responsive: true,
+        elements:{
+          point:{
+            radius:0
+          }
+
+        }
+    }
+});
+     },
+
+     error: function(response)
+     {
+      console.log("failed")
+     }
+    
+  })
+  
+}
+
+SW();
+
+</script>
+</body>
+</html>
